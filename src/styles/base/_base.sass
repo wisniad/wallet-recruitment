@@ -1,0 +1,56 @@
+@import "~styles/vars/colors"
+@import "~styles/vars/fonts"
+
+*
+  box-sizing: border-box
+  -webkit-font-smoothing: antialiased // sass-lint:disable-line no-vendor-prefixes
+  -moz-osx-font-smoothing: grayscale // sass-lint:disable-line no-vendor-prefixes
+
+  &::before,
+  &::after
+    box-sizing: inherit
+
+  &:focus
+    outline: none
+
+body
+  min-width: 320px
+  background-color: $c-concrete
+  color: $c-blackish
+  font-family: $ff-roboto
+
+button
+  padding: 0
+  border: 0
+  background: none
+  cursor: pointer
+
+  &:disabled
+    cursor: not-allowed
+
+label
+  display: block
+
+input
+  font-family: $ff-roboto
+
+img
+  display: block
+  max-width: 100%
+
+a
+  display: inline-block
+  text-decoration: none
+  color: $c-blackish
+
+span
+  display: inline-block
+
+::-webkit-input-placeholder // sass-lint:disable-line no-vendor-prefixes
+  color: rgba($c-black, 0.4)
+
+::-moz-placeholder // sass-lint:disable-line no-vendor-prefixes
+  color: rgba($c-black, 0.4)
+
+::-ms-input-placeholder // sass-lint:disable-line no-vendor-prefixes
+  color: rgba($c-black, 0.4)
