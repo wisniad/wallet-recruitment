@@ -20,30 +20,31 @@
             span.fs-16.c-blackish Logout
       .flex-container.space-between
         div
-          p 
-          |  Your wallet's balance is 
+          p
+          |  Your wallet's balance is
           span.balance {{ transactions.map( (record) => record.amount ).reduce( (accumulator, currentValue) => accumulator + currentValue ) }}
           | .
         .right
           .buttons
+            - var active = true
             button.o-btn(
               @click="filterTrans(0)",
               type="button",
-              class = "bg-blue",
+              :class = "filter == 0 ? 'bg-blue' : 'bg-white' ",
             )
               span All
-            
+
             button.o-btn(
               @click="filterTrans(1)",
               type="button",
-              class = "bg-white"
+              :class = "filter == 1 ? 'bg-blue' : 'bg-white' ",
             )
               span Show additions
 
             button.o-btn(
               @click="filterTrans(2)",
               type="button",
-              class = "bg-white"
+              :class = "filter == 2 ? 'bg-blue' : 'bg-white' ",
             )
               span Withdrawal
       .row.justify-content-center
@@ -59,7 +60,7 @@
               td {{transaction.createdAt | formatDate }}
               td {{ transaction.name }}
               td.alignRight {{ transaction.amount }}
-              td.alignRight 
+              td.alignRight
                 img(
                   src="~assets/more.svg",
                   alt="More"
@@ -70,11 +71,12 @@
   import { mapActions } from 'vuex'
   import store from 'src/store'
   import router from 'src/router'
-  import ls from 'local-storage'
 
   export default {
     name: 'Logout',
     data: () => ({
+      val: 0,
+      filter: 1,
       filteredTransactions: [
         {
           amount: "",
@@ -114,15 +116,15 @@
       },
       filterTrans: function (value) {
         if( value === 1 ) {
-          this.val = value;
+          this.filter = value;
           this.filteredTransactions = this.transactions.filter( (tran) => { return tran.amount > 0})
         }
         else if( value === 2 ) {
-          this.val = value;
+          this.filter = value;
           this.filteredTransactions = this.transactions.filter( (tran) => { return tran.amount < 0})
         }
         else {
-          this.val = value;
+          this.filter = value;
           this.filteredTransactions = this.transactions
         }
       },
@@ -133,10 +135,61 @@
       }
     }
   }
-  
+
 </script>
 
 <style lang="sass" scoped>
-  
-    
+  .flex-container
+    display: flex;
+  .space-between
+    justify-content: space-between;
+
+  .header
+    padding: 2rem 0 3rem 0;
+
+
+  .right
+    text-align: right;
+
+  .balance
+    color: #57b6ff;
+
+  table
+    border-collapse: collapse;
+    width: 95%;
+    margin-top: 1.5rem;
+
+  th, td
+    width: auto;
+    padding: 1rem 0 1rem 1rem;
+    text-align: left;
+
+  td
+    background-color: #f9f9f9;
+    border-top: 3px #f4f4f4 solid;
+
+  .thAdded
+    width: 30%;
+
+  .thTitle
+    width: 50%;
+
+  .thMore
+    width: 20%;
+
+  .alignRight
+    text-align: right;
+
+  td img
+    float: right;
+    padding-right: 1.7rem;
+
+  .imgText
+    padding-left: 3rem;
+
+  thead
+    background-color: #fff;
+
+
+
 </style>
